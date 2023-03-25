@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class JSWaiter {
 
 	static WebDriver jsWaitDriver;
@@ -16,7 +18,7 @@ public class JSWaiter {
 	// Get the driver
 	public static void setDriver(WebDriver driver) {
 		jsWaitDriver = driver;
-		jsWait = new WebDriverWait(jsWaitDriver, 180);
+		jsWait = new WebDriverWait(jsWaitDriver, Duration.ofSeconds(180));
 		jsExec = (JavascriptExecutor) jsWaitDriver;
 	}
 

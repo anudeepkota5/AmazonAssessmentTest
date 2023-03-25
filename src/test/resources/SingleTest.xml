@@ -4,7 +4,7 @@
 	<parameter name="browser" value="chrome" />
 	<test verbose="2" name="Test" preserve-order="true">
 		<classes>
-			<class name="com.gammax.ci.exchange.testcases.admin.LimitTC.java"></class>
+			<class name="com.gammax.ci.exchange.testcases.admin.LimitTC"></class>
 		</classes>
 	</test>
 </suite>

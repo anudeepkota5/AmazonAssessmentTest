@@ -70,7 +70,7 @@ public class LimitMarketStopTC extends Base{
         setTestId(TEST_ID);
         homePage.selectCrypto(data.getCrypto());
         int markprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
-        homePage.clickStopLimit();
+        homePage.selectStopLimitTab("Stop Limit");
         homePage.enterQty(data.getQuantity());
         homePage.enterstopPrice(""+(markprice-5));
         homePage.selectTrigger("Mark");
@@ -90,7 +90,7 @@ public class LimitMarketStopTC extends Base{
         homePage.selectCrypto(data.getCrypto());
         int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
         System.out.println("BALANCE :: "+mprice);
-        homePage.clickStopLimit();
+        homePage.selectStopLimitTab("Stop Limit");
         homePage.enterQty(data.getQuantity());
         homePage.enterstopPrice(""+(mprice+15));
         homePage.selectTrigger("Mark");
@@ -101,5 +101,116 @@ public class LimitMarketStopTC extends Base{
         homePage.VerifyAleart("Buy "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
         homePage.clickOrderHistory();
         homePage.verifyOrderBook(data.getCrypto(), data.getQuantity(), ""+(mprice+15), "STOPLIMIT", "Accepted");
+    }
+    
+    @Test(dataProvider = "getData")
+    public void verify_StopMarketBuy(ExcelData data) throws Exception{
+    	setTestId(TEST_ID);
+        homePage.selectCrypto(data.getCrypto());
+        int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
+        System.out.println("BALANCE :: "+mprice);
+        homePage.selectStopLimitTab("Stop Market");
+        homePage.enterQty(data.getQuantity());
+        homePage.enterstopPrice(""+(mprice+30));
+        homePage.selectTrigger("Mark");
+        homePage.clickBuy();
+        confirmPage.ConfirmYourOrderPageDriverRef(driver);
+        confirmPage.clickBuy();
+        homePage.VerifyAleart("Buy "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
+        homePage.clickStops();
+        homePage.verifyStops(data.getCrypto(), data.getQuantity(), ""+(mprice+30), "Stop Market", "Untriggered");
+    }
+    
+//    ETH Issue
+    @Test(dataProvider = "getData")
+    public void verify_StopMarketSell(ExcelData data) throws Exception{
+    	setTestId(TEST_ID);
+        homePage.selectCrypto(data.getCrypto());
+        int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
+        System.out.println("BALANCE :: "+mprice);
+        homePage.selectStopLimitTab("Stop Market");
+        homePage.enterQty(data.getQuantity());
+        homePage.enterstopPrice(""+(mprice-30));
+        homePage.selectTrigger("Mark");
+        homePage.clickSell();
+        confirmPage.ConfirmYourOrderPageDriverRef(driver);
+        confirmPage.clickSell();
+        homePage.VerifyAleart("Sell "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
+        homePage.clickStops();
+        homePage.verifyStops(data.getCrypto(), data.getQuantity(), ""+(mprice-30), "Stop Market", "Untriggered");
+    }
+    
+    @Test(dataProvider = "getData")
+    public void verify_TakeProfitLimitBuy(ExcelData data) throws Exception{
+    	setTestId(TEST_ID);
+        homePage.selectCrypto(data.getCrypto());
+        int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
+        System.out.println("BALANCE :: "+mprice);
+        homePage.selectStopLimitTab("Take Profit Limit");
+        homePage.enterQty(data.getQuantity());
+        homePage.enterTriggerPrice(""+(mprice-10));
+        homePage.selectTrigger("Mark");
+        homePage.selectTIF("Good till Cancelled");
+        homePage.clickBuy();
+        confirmPage.ConfirmYourOrderPageDriverRef(driver);
+        confirmPage.clickBuy();
+        homePage.VerifyAleart("Buy "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
+        homePage.clickStops();
+        homePage.verifyStops(data.getCrypto(), data.getQuantity(), ""+(mprice-10), "Take Profit Limit", "Untriggered");
+    }
+    
+    @Test(dataProvider = "getData")
+    public void verify_TakeProfitLimitSell(ExcelData data) throws Exception{
+    	setTestId(TEST_ID);
+        homePage.selectCrypto(data.getCrypto());
+        int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
+        System.out.println("BALANCE :: "+mprice);
+        homePage.selectStopLimitTab("Take Profit Limit");
+        homePage.enterQty(data.getQuantity());
+        homePage.enterTriggerPrice(""+(mprice+10));
+        homePage.selectTrigger("Mark");
+        homePage.selectTIF("Good till Cancelled");
+        homePage.clickSell();
+        confirmPage.ConfirmYourOrderPageDriverRef(driver);
+        confirmPage.clickSell();
+        homePage.VerifyAleart("Sell "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
+        homePage.clickStops();
+        homePage.verifyStops(data.getCrypto(), data.getQuantity(), ""+(mprice+10), "Take Profit Limit", "Untriggered");
+    }
+    
+    @Test(dataProvider = "getData")
+    public void verify_TakeProfitMarketBuy(ExcelData data) throws Exception{
+    	setTestId(TEST_ID);
+        homePage.selectCrypto(data.getCrypto());
+        int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
+        System.out.println("BALANCE :: "+mprice);
+        homePage.selectStopLimitTab("Take Profit Market");
+        homePage.enterQty(data.getQuantity());
+        homePage.enterTriggerPrice(""+(mprice-10));
+        homePage.selectTrigger("Mark");
+        homePage.clickBuy();
+        confirmPage.ConfirmYourOrderPageDriverRef(driver);
+        confirmPage.clickBuy();
+        homePage.VerifyAleart("Buy "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
+        homePage.clickStops();
+        homePage.verifyStops(data.getCrypto(), data.getQuantity(), ""+(mprice-10), "Take Profit Market", "Untriggered");
+    }
+    
+    @Test(dataProvider = "getData")
+    public void verify_TakeProfitMarketSell(ExcelData data) throws Exception{
+    	setTestId(TEST_ID);
+        homePage.selectCrypto(data.getCrypto());
+        int mprice = (int)Double.parseDouble(homePage.getMarkPrice().trim());
+        System.out.println("BALANCE :: "+mprice);
+        homePage.selectStopLimitTab("Take Profit Market");
+        homePage.enterQty(data.getQuantity());
+        homePage.enterTriggerPrice(""+(mprice+10));
+        homePage.selectTrigger("Mark");
+        homePage.clickSell();
+        confirmPage.ConfirmYourOrderPageDriverRef(driver);
+        confirmPage.clickSell();
+        homePage.VerifyAleart("Sell "+data.getQuantity()+" Contracts of "+data.getCrypto()+" at ");
+        homePage.clickStops();
+        homePage.verifyStops(data.getCrypto(), data.getQuantity(), ""+(mprice+10), "Take Profit Market", "Untriggered");
     }
 }

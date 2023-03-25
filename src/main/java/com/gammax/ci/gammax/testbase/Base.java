@@ -8,6 +8,7 @@ import com.gammax.ci.gammax.core.ExcelReader;
 import com.gammax.ci.gammax.core.ExtentManager;
 import com.gammax.ci.gammax.core.TestProperties;
 import com.gammax.ci.gammax.core.Testuff;
+import com.gammax.ci.gammax.testbase.ExcelData;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -45,6 +46,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Base {
 
@@ -275,9 +277,10 @@ public class Base {
 	public static Object[] getData(Method m) {
 		List<ExcelData> testdata = ExcelReader.getData()
 				.stream()
-				.filter(e->e.getTestname().equalsIgnoreCase(m.getName())).toList();
+				.filter(e->e.getTestname().equalsIgnoreCase(m.getName())).collect(Collectors.toList());
 		return testdata.toArray();
 	}
+	
 	public static void setLabID(String labid) {
 		Base.LABID = labid;
 	}
@@ -487,22 +490,6 @@ public class Base {
 		Base.takeScreenShot();
 		logger.info("Close button clicked");
 		Base.extentTest.log(LogStatus.PASS, "Close button clicked");
-
-	}
-
-	public void uploadPDFFile(String filePath, String fileName) throws InterruptedException {
-
-		String fullPath = filePath + File.separator + fileName;
-
-		logger.info(fullPath);
-		driver.findElement(By.xpath("//form[@ng-controller='UploadCtrl']//input[@name='entry.File']"))
-				.sendKeys(fullPath);
-		timeinterval(5);
-		driver.findElement(By.xpath("//div[@class='modal-footer']//button[text()[contains(., 'Upload')]]")).click();
-		timeinterval(20);
-		Base.takeScreenShot();
-		logger.info("File uploading...");
-		Base.extentTest.log(LogStatus.PASS, "File uploading...");
 
 	}
 

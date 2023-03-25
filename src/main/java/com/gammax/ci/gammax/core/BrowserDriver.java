@@ -222,10 +222,12 @@ public class BrowserDriver {
 		} else if (os.contains("nix") || os.contains("nux")) {
 			if (browser.equals("chrome")) {
 				ChromeOptions options = new ChromeOptions();
+				options.addArguments("--headless");
+    				options.addArguments("--no-sandbox");
+    				options.addArguments("--disable-dev-shm-usage");
 				options.addArguments("--remote-allow-origins=*","ignore-certificate-errors");
 				System.out.println(System.getProperty("user.dir"));
 				options.addExtensions(new File(System.getProperty("user.dir")+"/src/test/resources/extension_10_24_1_0.crx"));
-				System.setProperty("webdriver.chrome.driver", LinuxChromeDriverPath);
 				driver = new ChromeDriver(options);
 				log.info("Chrome Browser is launching");
 			} else {

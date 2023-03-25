@@ -5,7 +5,7 @@ import com.gammax.ci.gammax.testbase.Base;
 import com.gammax.ci.gammax.testbase.JSWaiter;
 import com.relevantcodes.extentreports.LogStatus;
 
-import groovyjarjarantlr4.v4.parse.ANTLRParser.element_return;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,12 +24,13 @@ public class MetamaskRegistrationPage extends Base {
 
     WebDriver driver;
 
+    Element element;
 
     public void MetamaskDriverRef(WebDriver driver) {
         this.driver = driver;
         AjaxElementLocatorFactory factory = new AjaxElementLocatorFactory(driver, 45);
         PageFactory.initElements(factory, this);
-        Element element = new Element(driver);
+        element = new Element(driver);
         JSWaiter.setDriver(driver);
     }
 
@@ -101,6 +102,7 @@ public class MetamaskRegistrationPage extends Base {
 	}
     
     public void clickImportAnExistingWallet() {
+	element.waitClickable(driver, importAnExistingWallet, 30);
     	importAnExistingWallet.click();
     	extentTest.log(LogStatus.INFO, "Click on Import an Existing Wallet");
         takeScreenShot();

@@ -222,22 +222,9 @@ public class BrowserDriver {
 		} else if (os.contains("nix") || os.contains("nux")) {
 			if (browser.equals("chrome")) {
 				ChromeOptions options = new ChromeOptions();
-				HashMap<String, Object> chromePref = new HashMap<>();
-				chromePref.put("download.default_directory", System.getProperty("user.dir") + DownloadDir);
-				options.setExperimentalOption("prefs", chromePref);
-				options.addArguments("--disable-notifications");
-				options.addArguments("disable-infobars");
-				// Newly added proxy setting
-				options.addArguments("--no-proxy-server");
-				options.addArguments("--proxy-server='direct://'");
-				options.addArguments("--proxy-bypass-list=*");
-				options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-
-				options.addArguments("--no-sandbox");
-				options.addArguments("--headless");
-				options.addArguments("--disable-dev-shm-usage");
-				options.addArguments("--window-size=1920x1080");
-
+				options.addArguments("--remote-allow-origins=*","ignore-certificate-errors");
+				System.out.println(System.getProperty("user.dir"));
+				options.addExtensions(new File(System.getProperty("user.dir")+"/src/test/resources/extension_10_24_1_0.crx"));
 				System.setProperty("webdriver.chrome.driver", LinuxChromeDriverPath);
 				driver = new ChromeDriver(options);
 				log.info("Chrome Browser is launching");

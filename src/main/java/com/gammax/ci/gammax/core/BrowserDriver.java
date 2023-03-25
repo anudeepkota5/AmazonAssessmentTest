@@ -284,6 +284,7 @@ public class BrowserDriver {
 //		String browserVersion = newCapabilities.getBrowserVersion();
 
 //		log.info("Driver is created. Browser is " + browserAfterInint + ". Browser version is " + browserVersion);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(120));
 		driver.manage().window().maximize();
 		return driver;
 	}

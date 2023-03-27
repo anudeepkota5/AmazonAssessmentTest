@@ -101,10 +101,9 @@ public class MetamaskRegistrationPage extends Base {
 		}
 	}
     
-    public void clickImportAnExistingWallet() throws Exception {
-	Thread.sleep(10000);
+    public void clickImportAnExistingWallet() {
         System.out.println(driver.getPageSource());
-	element.waitClickable(driver, importAnExistingWallet, 30);
+	element.waitClickable(driver, importAnExistingWallet, 120);
     	importAnExistingWallet.click();
     	extentTest.log(LogStatus.INFO, "Click on Import an Existing Wallet");
         takeScreenShot();

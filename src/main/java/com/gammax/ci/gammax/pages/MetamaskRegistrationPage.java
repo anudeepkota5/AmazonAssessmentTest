@@ -104,6 +104,7 @@ public class MetamaskRegistrationPage extends Base {
     public void clickImportAnExistingWallet() {
         System.out.println(driver.getPageSource());
 	element.waitClickable(driver, importAnExistingWallet, 120);
+	System.out.println("Windows :: "+driver.getWindowHandles().size());
     	importAnExistingWallet.click();
     	extentTest.log(LogStatus.INFO, "Click on Import an Existing Wallet");
         takeScreenShot();
